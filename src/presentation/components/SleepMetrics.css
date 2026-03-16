@@ -1,0 +1,497 @@
+.sleep-metrics-layout {
+    min-height: 100vh;
+    background-color: #0d1210;
+    /* Very deep dark green/black background matching the screenshot */
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.sleep-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.header-titles .main-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.header-titles .sub-title {
+    font-size: 0.75rem;
+    color: #8c9fa8;
+    margin: 0.2rem 0 0 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.icon-btn {
+    background: #161e1b;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #8c9fa8;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.icon-btn:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #161e1b;
+    padding: 0.3rem 1rem 0.3rem 0.3rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #1fcb70;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Main Content Wrapper */
+.sleep-main {
+    flex: 1;
+    padding: 2rem 3rem 4rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Top Dashboard Grid */
+.dashboard-grid-top {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 1.5rem;
+}
+
+/* Efficiency Card (Left Side) */
+.efficiency-card {
+    background-color: #141b18;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Wavy background for card - Optional visual flair */
+.efficiency-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: radial-gradient(ellipse at bottom, rgba(31, 203, 112, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #1fcb70;
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    text-align: center;
+    width: 100%;
+}
+
+/* Circular Progress Ring */
+.efficiency-ring-container {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.efficiency-ring {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.ring-background {
+    fill: none;
+    stroke: #1b2621;
+    /* Dark background ring track */
+    stroke-width: 8;
+}
+
+.ring-progress {
+    fill: none;
+    stroke: #1fcb70;
+    /* Bright green progress */
+    stroke-width: 8;
+    stroke-linecap: round;
+    /* Animation/Glow Effect */
+    filter: drop-shadow(0 0 8px rgba(31, 203, 112, 0.6));
+    transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.ring-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-value {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.ring-percent {
+    font-size: 1.5rem;
+    margin-top: 0.2rem;
+    margin-left: 0.1rem;
+    color: #1fcb70;
+}
+
+.ring-status {
+    font-size: 0.7rem;
+    color: #8c9fa8;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+/* Bottom Stats Row in Efficiency Card */
+.efficiency-stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.6rem;
+    color: #5d6d75;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.highlight-green {
+    color: #1fcb70;
+}
+
+/* Phase Cards Column (Right Side) */
+.sleep-phases-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.phase-card {
+    background-color: #141b18;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.phase-card.deep-sleep {
+    border: 1px solid rgba(31, 203, 112, 0.4);
+    background: linear-gradient(90deg, rgba(31, 203, 112, 0.05) 0%, rgba(20, 27, 24, 1) 40%);
+}
+
+.phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.phase-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.phase-label {
+    font-size: 0.65rem;
+    color: #8c9fa8;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.phase-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.phase-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.03);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phase-bar-track {
+    width: 100%;
+    height: 6px;
+    background-color: #1e2622;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.phase-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background-color: #8c9fa8;
+    /* Default for REM */
+}
+
+.deep-sleep .phase-bar-fill,
+.light-sleep .phase-bar-fill {
+    background-color: #1fcb70;
+    box-shadow: 0 0 8px rgba(31, 203, 112, 0.4);
+}
+
+/* Logging Section */
+.neural-logging-section {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-title h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.logging-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.log-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.log-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #8c9fa8;
+    margin: 0;
+}
+
+.log-options {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.log-btn {
+    flex: 1;
+    background: #141b18;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: #5d6d75;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.log-btn span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.log-btn:hover {
+    border-color: rgba(31, 203, 112, 0.3);
+    color: #8c9fa8;
+}
+
+.log-btn.highlight {
+    border-color: rgba(31, 203, 112, 0.4);
+    color: #1fcb70;
+}
+
+.log-btn.active {
+    background-color: rgba(31, 203, 112, 0.1);
+    border-color: #1fcb70;
+    color: #1fcb70;
+}
+
+/* Protocol Sync Footer Bar */
+.protocol-sync-bar {
+    background: #141b18;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.sync-info {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.sync-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgba(31, 203, 112, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sync-text h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.2rem 0;
+}
+
+.sync-text p {
+    font-size: 0.75rem;
+    color: #8c9fa8;
+    margin: 0;
+}
+
+.btn-generate-report {
+    background-color: #1fcb70;
+    color: #000000;
+    border: none;
+    padding: 0.8rem 1.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-generate-report:hover {
+    background-color: #24e17e;
+    box-shadow: 0 0 20px rgba(31, 203, 112, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Responsive Scaling */
+@media (max-width: 1024px) {
+    .dashboard-grid-top {
+        grid-template-columns: 1fr;
+    }
+
+    .logging-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .sleep-main {
+        padding: 1.5rem;
+    }
+
+    .log-options {
+        flex-wrap: wrap;
+    }
+
+    .log-btn {
+        min-width: calc(25% - 0.75rem);
+    }
+
+    .protocol-sync-bar {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+
+    .btn-generate-report {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,386 @@
+.login-container {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+    padding: 2rem;
+    position: relative;
+}
+
+.login-box {
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+    min-height: 600px;
+    background-color: var(--surface-white);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* --- Left Side (Brand) --- */
+.login-brand-side {
+    flex: 1;
+    background-color: #E6F7ED;
+    /* Light mint matching the image */
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    z-index: 10;
+}
+
+.login-logo-icon {
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.login-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--color-dark-green);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    z-index: 10;
+}
+
+.login-subtitle {
+    color: var(--color-primary-dark);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 85%;
+    z-index: 10;
+    margin-bottom: 2rem;
+}
+
+.login-graphic {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    margin: 2rem 0;
+}
+
+.graphic-large-circle {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.microscope-box {
+    color: var(--color-primary);
+}
+
+.microscope-icon {
+    width: 72px;
+    height: 72px;
+    stroke-width: 2.5;
+}
+
+.floating-square {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(0, 166, 81, 0.15);
+    /* Light green tint */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary-dark);
+    position: absolute;
+    backdrop-filter: blur(4px);
+}
+
+.floating-square.top-right {
+    top: 15px;
+    right: 15px;
+}
+
+.floating-square.bottom-left {
+    bottom: 25px;
+    left: 10px;
+}
+
+.trust-badge {
+    margin-top: auto;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--color-primary-dark);
+    z-index: 10;
+}
+
+/* --- Right Side (Form) --- */
+.login-form-side {
+    flex: 1;
+    padding: 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--surface-white);
+}
+
+.portal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #EEF2FF;
+    /* Light blue tint */
+    color: #4F46E5;
+    /* Indigo */
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: fit-content;
+    margin-bottom: 2rem;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.form-group label svg {
+    color: var(--color-primary);
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-link {
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background-color: #F8FAFC;
+    transition: all 0.2s;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1);
+    background-color: var(--surface-white);
+}
+
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    padding-right: 2.5rem;
+}
+
+.btn-visibility {
+    position: absolute;
+    right: 1rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.btn-visibility:hover {
+    color: var(--text-dark);
+}
+
+.login-btn-submit {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 166, 81, 0.2);
+}
+
+.login-btn-submit:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.signup-prompt {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.signup-link {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+.secure-login-badge {
+    margin-top: 2rem;
+    background-color: var(--color-secondary-bg);
+    border: 1px solid rgba(0, 166, 81, 0.2);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.secure-icon {
+    background-color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.secure-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.secure-text strong {
+    font-size: 0.875rem;
+    color: var(--text-dark);
+}
+
+.secure-text p {
+    font-size: 0.75rem;
+    color: var(--color-primary-dark);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.theme-toggle-fixed {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background-color: var(--surface-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    transition: transform 0.2s;
+}
+
+.theme-toggle-fixed:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    .login-box {
+        flex-direction: column;
+    }
+
+    .login-brand-side {
+        padding: 2rem;
+        align-items: center;
+        text-align: center;
+    }
+
+    .login-subtitle {
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .login-graphic {
+        display: none;
+        /* Hide graphic on small screens to save space */
+    }
+
+    .trust-badge {
+        margin-top: 1rem;
+    }
+
+    .login-form-side {
+        padding: 2rem;
+    }
+}

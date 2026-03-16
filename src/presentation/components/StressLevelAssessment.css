@@ -1,0 +1,435 @@
+.stress-layout {
+    min-height: 100vh;
+    background-color: #121c18;
+    /* Solid, very dark green shade */
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Header */
+.stress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    position: relative;
+    z-index: 2;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-brand-shield {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.shield-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #1fcb70;
+    color: #121c18;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shield-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.shield-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+}
+
+.highlight-white {
+    color: #ffffff;
+}
+
+.shield-sub {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #1fcb70;
+    letter-spacing: 0.1em;
+    margin-top: 0.15rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.icon-button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #8c9fa8;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.icon-button:hover {
+    border-color: rgba(31, 203, 112, 0.5);
+    color: #1fcb70;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.header-divider {
+    height: 24px;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 0 0.5rem;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.user-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.user-status {
+    font-size: 0.75rem;
+    color: #1fcb70;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.user-avatar-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #f7ceab;
+    /* Peach colored circle from design */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 0 2px #121c18, 0 0 0 4px rgba(31, 203, 112, 0.3);
+}
+
+/* Main Content */
+.stress-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 2rem 4rem 2rem;
+    width: 100%;
+    z-index: 2;
+}
+
+.assessment-card {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 3rem 4rem;
+    max-width: 850px;
+    width: 100%;
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.stress-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.highlight-green {
+    color: #1fcb70;
+}
+
+.stress-subtitle {
+    color: #8c9fa8;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Options Stack */
+.stress-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+    margin-bottom: 3.5rem;
+}
+
+.stress-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.stress-option:hover {
+    border-color: rgba(31, 203, 112, 0.3);
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.stress-option.selected {
+    border-color: #1fcb70;
+    background-color: rgba(31, 203, 112, 0.05);
+    box-shadow: inset 0 0 0 1px #1fcb70;
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.option-icon-square {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.low-stress {
+    background-color: rgba(31, 203, 112, 0.15);
+    color: #1fcb70;
+}
+
+.moderate-stress {
+    background-color: rgba(31, 203, 112, 0.10);
+    color: #1fcb70;
+}
+
+.high-stress {
+    background-color: rgba(31, 203, 112, 0.05);
+    color: #1fcb70;
+}
+
+.chronic-stress {
+    background-color: rgba(31, 203, 112, 0.15);
+    color: #1fcb70;
+}
+
+.stress-option.selected .option-icon-square {
+    opacity: 1;
+}
+
+.option-text h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
+}
+
+.option-text p {
+    font-size: 0.9rem;
+    color: #8c9fa8;
+}
+
+.radio-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(31, 203, 112, 0.3);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.stress-option.selected .radio-circle {
+    border-color: #1fcb70;
+}
+
+.stress-option.selected .radio-circle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background-color: #1fcb70;
+    border-radius: 50%;
+}
+
+/* Card Actions */
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+.btn-previous {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #1fcb70;
+    padding: 1rem 1.75rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-previous:hover {
+    background: rgba(31, 203, 112, 0.05);
+    border-color: rgba(31, 203, 112, 0.4);
+}
+
+.btn-finalize {
+    background-color: #1fcb70;
+    color: #000000;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.btn-finalize.ready {
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: 0 0 30px rgba(31, 203, 112, 0.4);
+}
+
+.btn-finalize.ready:hover {
+    background-color: #24e17e;
+    box-shadow: 0 0 40px rgba(31, 203, 112, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Footer Vitals */
+.vitals-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem 3rem 2rem;
+}
+
+.vitals-grid {
+    display: flex;
+    gap: 1.5rem;
+    max-width: 850px;
+    width: 100%;
+}
+
+.vital-card {
+    flex: 1;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.v-label {
+    font-family: inherit;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #3f584b;
+    /* Dusky faded green */
+    letter-spacing: 0.15em;
+}
+
+.v-value {
+    font-size: 1.15rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .assessment-card {
+        padding: 2.5rem 2rem;
+    }
+
+    .vitals-grid {
+        flex-wrap: wrap;
+    }
+
+    .vital-card {
+        min-width: calc(50% - 0.75rem);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .header-divider,
+    .user-name {
+        display: none;
+    }
+
+    .stress-title {
+        font-size: 1.8rem;
+    }
+
+    .stress-option {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        position: relative;
+    }
+
+    .radio-circle {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .card-actions {
+        flex-direction: column-reverse;
+        gap: 1rem;
+    }
+
+    .btn-finalize,
+    .btn-previous {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,49 @@
+
+C:\Users\HP\Desktop\web\spermAI\src\data\api\ApiClient.ts
+  30:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\HP\Desktop\web\spermAI\src\data\repositories\AssessmentRepositoryImpl.ts
+  3:10  error  'apiClient' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\HP\Desktop\web\spermAI\src\presentation\screens\AIAnalysisScreen.tsx
+  1:17  error  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\HP\Desktop\web\spermAI\src\presentation\viewmodels\useAnalysisViewModel.ts
+  27:18  error  'error' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  49:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\HP\Desktop\web\spermAI\src\presentation\viewmodels\useAnalysisViewModel.ts:49:9
+  47 |
+  48 |     useEffect(() => {
+> 49 |         loadAssessment();
+     |         ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  50 |     }, [loadAssessment]);
+  51 |
+  52 |     return {  react-hooks/set-state-in-effect
+
+C:\Users\HP\Desktop\web\spermAI\src\presentation\viewmodels\useHomeViewModel.ts
+  41:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\HP\Desktop\web\spermAI\src\presentation\viewmodels\useHomeViewModel.ts:41:9
+  39 |
+  40 |     useEffect(() => {
+> 41 |         loadAssessment();
+     |         ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  42 |     }, [loadAssessment]);
+  43 |
+  44 |     return {  react-hooks/set-state-in-effect
+
+✖ 6 problems (6 errors, 0 warnings)
+
