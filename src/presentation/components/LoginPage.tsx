@@ -52,7 +52,7 @@ export const LoginPage: React.FC = () => {
                                 <path d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zm1 13h-2v-2h2v2zm0-4h-2V7h2v6z" fill="white" />
                             </svg>
                         </div>
-                        FertilityAI
+                        SpermAI
                     </div>
 
                     <h1 className="login-title">

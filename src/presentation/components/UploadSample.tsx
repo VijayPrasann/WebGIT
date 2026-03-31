@@ -1,12 +1,56 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './UploadSample.css';
 
 export const UploadSample: React.FC = () => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+    // Patient info states
+    const [patientId, setPatientId] = useState<string | null>(null);
+    const [patientName, setPatientName] = useState<string | null>(null);
+    const [isReanalyzing, setIsReanalyzing] = useState(false);
+    const [hasStoredInfo, setHasStoredInfo] = useState(false);
+
+    // Form state for patient details
+    const [formData, setFormData] = useState({
+        patientFullName: '',
+        age: '',
+        height: '',
+        weight: '',
+        occupation: '',
+        exerciseFrequency: '',
+        visitDate: new Date().toISOString().split('T')[0]
+    });
+
+    useEffect(() => {
+        const pId = searchParams.get('patient_id');
+        const pName = searchParams.get('patient_name');
+
+        // Check if we already have patient info from the intake flow
+        const storedName = localStorage.getItem('spermAI_userName');
+        if (storedName) {
+            setHasStoredInfo(true);
+            setPatientName(storedName);
+        }
+
+        if (pId) {
+            setPatientId(pId);
+            setIsReanalyzing(true);
+            if (pName) {
+                setPatientName(pName);
+                setFormData(prev => ({ ...prev, patientFullName: pName }));
+            }
+        }
+    }, [searchParams]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -47,21 +91,29 @@ export const UploadSample: React.FC = () => {
             return;
         }
 
-        const formData = new FormData();
+        const formDataPayload = new FormData();
         selectedFiles.forEach((file) => {
-            formData.append('images', file);
+            formDataPayload.append('images', file);
         });
 
-        // Try grabbing the known patient ID if passed during the intake session (Optional but helpful based on backend)
-        const storedPatientId = localStorage.getItem('spermAI_patientId');
-        if (storedPatientId) {
-            formData.append('patient_id', storedPatientId);
+        // Use patient_id from URL if re-analyzing, otherwise check form or localstorage
+        if (patientId) {
+            formDataPayload.append('patient_id', patientId);
+        } else {
+            // Append patient details if it's a new patient
+            formDataPayload.append('patient_name', formData.patientFullName);
+            formDataPayload.append('age', formData.age);
+            formDataPayload.append('height_cm', formData.height);
+            formDataPayload.append('weight_kg', formData.weight);
+            formDataPayload.append('occupation', formData.occupation);
+            formDataPayload.append('exercise_frequency', formData.exerciseFrequency);
+            formDataPayload.append('visit_date', formData.visitDate);
         }
 
         try {
             const response = await fetch('http://localhost:8000/api/upload-sample', {
                 method: 'POST',
-                body: formData,
+                body: formDataPayload,
             });
 
             const data = await response.json();
@@ -140,11 +192,110 @@ export const UploadSample: React.FC = () => {
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1fcb70" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                         </svg>
-                        <span>AWAITING INPUT SEQUENCE</span>
+                        <span>{isReanalyzing ? 'RE-ANALYSIS SEQUENCE' : 'AWAITING INPUT SEQUENCE'}</span>
                     </div>
-                    <h1>Mission-Critical <span>Upload</span></h1>
+                    <h1>
+                        {isReanalyzing ? (
+                            <>Re-analyzing sample for: <span>{patientName}</span></>
+                        ) : hasStoredInfo ? (
+                            <>Upload Sample for: <span>{patientName}</span></>
+                        ) : (
+                            <>Mission-Critical <span>Upload</span></>
+                        )}
+                    </h1>
                     <p>Secure diagnostic portal for high-resolution microscopic imaging and biometric data synthesis. Ensure samples meet Grade-A preparation protocols.</p>
                 </div>
+
+                {/* Patient Details Form - Hidden if re-analyzing OR if we already have info from intake */}
+                {!isReanalyzing && !hasStoredInfo && (
+                    <div className="patient-details-form">
+                        <div className="form-section-title">
+                            <h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Patient Identification</h3>
+                        </div>
+                        <div className="upload-form-grid">
+                            <div className="upload-form-group full-width">
+                                <label>PATIENT FULL NAME</label>
+                                <input
+                                    type="text"
+                                    name="patientFullName"
+                                    placeholder="e.g. Johnathan Doe"
+                                    value={formData.patientFullName}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="upload-form-group">
+                                <label>AGE</label>
+                                <input
+                                    type="number"
+                                    name="age"
+                                    placeholder="34"
+                                    value={formData.age}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="upload-form-group">
+                                <label>VISIT DATE</label>
+                                <input
+                                    type="date"
+                                    name="visitDate"
+                                    value={formData.visitDate}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="upload-form-group">
+                                <label>HEIGHT (CM)</label>
+                                <input
+                                    type="number"
+                                    name="height"
+                                    placeholder="180"
+                                    value={formData.height}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="upload-form-group">
+                                <label>WEIGHT (KG)</label>
+                                <input
+                                    type="number"
+                                    name="weight"
+                                    placeholder="75"
+                                    value={formData.weight}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="upload-form-group full-width">
+                                <label>OCCUPATION</label>
+                                <input
+                                    type="text"
+                                    name="occupation"
+                                    placeholder="Software Engineer"
+                                    value={formData.occupation}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="upload-form-group full-width">
+                                <label>EXERCISE FREQUENCY</label>
+                                <select
+                                    name="exerciseFrequency"
+                                    value={formData.exerciseFrequency}
+                                    onChange={handleInputChange}
+                                    required
+                                >
+                                    <option value="" disabled hidden>Select frequency</option>
+                                    <option value="none">None</option>
+                                    <option value="light">Light (1-2 days/week)</option>
+                                    <option value="moderate">Moderate (3-4 days/week)</option>
+                                    <option value="active">Active (5+ days/week)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* Drag and Drop Zone */}
                 <div

@@ -15,12 +15,7 @@ export const Header: React.FC = () => {
                 FertilityAI
             </div>
 
-            <nav className="header-nav">
-                <a href="#technology">Technology</a>
-                <a href="#research">Research</a>
-                <a href="#security">Security</a>
-                <a href="#contact">Contact</a>
-            </nav>
+
 
             <div className="header-actions">
                 <button className="btn-icon" aria-label="Toggle Dark Mode">

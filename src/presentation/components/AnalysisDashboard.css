@@ -609,7 +609,8 @@
     gap: 1rem;
 }
 
-.btn-report {
+.btn-report,
+.btn-pdf {
     background-color: #1a2f25;
     border: 1px solid rgba(31, 203, 112, 0.3);
     color: #1fcb70;
@@ -624,8 +625,10 @@
     transition: all 0.2s;
 }
 
-.btn-report:hover {
+.btn-report:hover,
+.btn-pdf:hover {
     background-color: #244133;
+    border-color: #1fcb70;
 }
 
 .btn-continue {

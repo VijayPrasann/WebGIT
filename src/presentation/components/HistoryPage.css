@@ -116,8 +116,9 @@
 
 .history-header-area {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
 }
 
 .history-title {
@@ -132,6 +133,67 @@
     font-size: 1rem;
     margin: 0;
     opacity: 0.9;
+}
+
+/* Search Bar Styles */
+.history-search-bar {
+    display: flex;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.4rem;
+    border-radius: 10px;
+    border: 1px solid rgba(31, 203, 112, 0.2);
+    width: 100%;
+    max-width: 450px;
+    transition: all 0.2s ease;
+}
+
+.history-search-bar:focus-within {
+    border-color: #1fcb70;
+    background: rgba(31, 203, 112, 0.05);
+    box-shadow: 0 0 0 3px rgba(31, 203, 112, 0.1);
+}
+
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    padding-left: 0.75rem;
+}
+
+.search-icon {
+    color: #64748b;
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 0.9rem;
+    width: 100%;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #475569;
+}
+
+.btn-search {
+    background: #1fcb70;
+    color: #0d1410;
+    border: none;
+    padding: 0.6rem 1.25rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-search:hover {
+    background: #3ff18e;
+    transform: translateY(-1px);
 }
 
 /* Table Card */
@@ -181,8 +243,16 @@
     font-weight: 500;
 }
 
+.fw-700 {
+    font-weight: 700;
+}
+
 .text-white {
     color: #ffffff;
+}
+
+.text-green {
+    color: #1fcb70;
 }
 
 .value-badge {
@@ -221,6 +291,25 @@
 .btn-view-details:hover {
     background: #1fcb70;
     color: #0d1410;
+}
+
+.btn-delete-item {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 0.5rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-delete-item:hover {
+    background: #ef4444;
+    color: #ffffff;
+    border-color: #ef4444;
 }
 
 /* Empty & Loading States */
@@ -458,6 +547,26 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
+}
+
+.btn-reanalyze {
+    background: transparent;
+    color: #1fcb70;
+    border: 1px solid rgba(31, 203, 112, 0.4);
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.btn-reanalyze:hover {
+    background: rgba(31, 203, 112, 0.1);
+    border-color: #1fcb70;
+    transform: translateY(-1px);
 }
 
 .btn-close-primary:hover {

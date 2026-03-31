@@ -25,6 +25,8 @@ export const HistoryPage: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedRecord, setSelectedRecord] = useState<AnalysisRecord | null>(null);
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [activeSearch, setActiveSearch] = useState<string>('');
 
     useEffect(() => {
         const fetchHistory = async () => {
@@ -55,9 +57,49 @@ export const HistoryPage: React.FC = () => {
         navigate('/login', { replace: true });
     };
 
+    const handleReanalyze = (record: AnalysisRecord) => {
+        navigate(`/upload?patient_id=${record.patient_id}&patient_name=${encodeURIComponent(record.patient_name)}`);
+    };
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        setActiveSearch(searchTerm.trim());
+    };
+
+    const handleDelete = async (id: number) => {
+        if (!window.confirm('Are you sure you want to delete this analysis report? This action cannot be undone.')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8000/api/analysis/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                // Update local state to remove the deleted record
+                setHistoryData(prevData => prevData.filter(record => record.id !== id));
+                if (selectedRecord?.id === id) {
+                    setSelectedRecord(null);
+                }
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to delete record.');
+            }
+        } catch (err: any) {
+            console.error("Delete Error:", err);
+            alert(`Error deleting record: ${err.message}`);
+        }
+    };
+
+    const filteredHistoryData = historyData.filter(record => {
+        const sampleId = `SAM-P-${record.patient_id}`.toLowerCase();
+        return sampleId.includes(activeSearch.toLowerCase());
+    });
+
     return (
         <div className="history-layout">
-            {/* Top Navigation Bar */}
+            {/* ... existing header ... */}
             <header className="history-header">
                 <div className="header-brand" onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>
                     <svg className="brand-logo" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -83,8 +125,27 @@ export const HistoryPage: React.FC = () => {
             <main className="history-main">
                 <div className="history-content-wrapper">
                     <div className="history-header-area">
-                        <h1 className="history-title">Analysis History</h1>
-                        <p className="history-subtitle">Review previous clinical analysis reports and insights.</p>
+                        <div>
+                            <h1 className="history-title">Analysis History</h1>
+                            <p className="history-subtitle">Review previous clinical analysis reports and insights.</p>
+                        </div>
+
+                        <form className="history-search-bar" onSubmit={handleSearch}>
+                            <div className="search-input-wrapper">
+                                <svg className="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input
+                                    type="text"
+                                    placeholder="Search by Sample ID (e.g. SAM-P-12)"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="search-input"
+                                />
+                            </div>
+                            <button type="submit" className="btn-search">Search</button>
+                        </form>
                     </div>
 
                     {loading ? (
@@ -108,11 +169,22 @@ export const HistoryPage: React.FC = () => {
                             </svg>
                             <p>No previous analysis reports available.</p>
                         </div>
+                    ) : filteredHistoryData.length === 0 ? (
+                        <div className="history-empty-container">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                            <p>No analysis records found for "{activeSearch}".</p>
+                            <button className="btn-view-details" onClick={() => { setSearchTerm(''); setActiveSearch(''); }}>Clear Search</button>
+                        </div>
                     ) : (
                         <div className="history-table-container">
                             <table className="history-table">
                                 <thead>
                                     <tr>
+                                        <th>Sample ID</th>
                                         <th>Patient Name</th>
                                         <th>Visit Date</th>
                                         <th>Age</th>
@@ -122,8 +194,9 @@ export const HistoryPage: React.FC = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {historyData.map((record) => (
+                                    {filteredHistoryData.map((record) => (
                                         <tr key={record.id}>
+                                            <td className="fw-700 text-green">SAM-P-{record.patient_id}</td>
                                             <td className="fw-500 text-white">{record.patient_name}</td>
                                             <td>{record.visit_date}</td>
                                             <td>{record.age} yrs</td>
@@ -133,9 +206,21 @@ export const HistoryPage: React.FC = () => {
                                             <td>
                                                 <div className="value-badge blue">{record.dfi_percent}%</div>
                                             </td>
-                                            <td>
+                                            <td style={{ display: 'flex', gap: '8px' }}>
                                                 <button className="btn-view-details" onClick={() => setSelectedRecord(record)}>
                                                     View Details
+                                                </button>
+                                                <button
+                                                    className="btn-delete-item"
+                                                    onClick={() => handleDelete(record.id)}
+                                                    title="Delete Analysis"
+                                                >
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                    </svg>
                                                 </button>
                                             </td>
                                         </tr>
@@ -167,6 +252,10 @@ export const HistoryPage: React.FC = () => {
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                 </span> Patient Information</h3>
                                 <div className="details-grid">
+                                    <div className="detail-item">
+                                        <span className="detail-label">Sample ID</span>
+                                        <span className="detail-value text-green fw-700">SAM-P-{selectedRecord.patient_id}</span>
+                                    </div>
                                     <div className="detail-item">
                                         <span className="detail-label">Patient Name</span>
                                         <span className="detail-value text-white">{selectedRecord.patient_name}</span>
@@ -230,7 +319,15 @@ export const HistoryPage: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="modal-footer">
+                        <div className="modal-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <button className="btn-reanalyze" onClick={() => handleReanalyze(selectedRecord)}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                                    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                                    <path d="m22 2-7 7" />
+                                    <path d="M9 22H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4" />
+                                </svg>
+                                Re-analyze Sample
+                            </button>
                             <button className="btn-close-primary" onClick={() => setSelectedRecord(null)}>Close Report</button>
                         </div>
                     </div>

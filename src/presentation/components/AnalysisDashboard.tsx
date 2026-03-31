@@ -4,6 +4,7 @@ import './AnalysisDashboard.css';
 
 interface AIResultPayload {
     patient: {
+        id: number;
         patient_name: string;
     };
     result: {
@@ -32,6 +33,7 @@ export const AnalysisDashboard: React.FC = () => {
 
     // Fallbacks if user navigated directly for testing
     const patientName = data?.patient?.patient_name || "ANONYMOUS-774";
+    const patientId = data?.patient?.id;
     const morphology = data?.result?.morphology_percent ?? 14.0;
     const dfi = data?.result?.dfi_percent ?? 12.0;
 
@@ -103,7 +105,7 @@ export const AnalysisDashboard: React.FC = () => {
 
                         <div className="info-row">
                             <span className="info-label">SAMPLE ID</span>
-                            <span className="info-value">882-QX-2024</span>
+                            <span className="info-value">{patientId ? `SAM-P-${patientId}` : 'SAM-P-001'}</span>
                         </div>
                         <div className="info-row">
                             <span className="info-label">COLLECTION TIME</span>
@@ -243,9 +245,9 @@ export const AnalysisDashboard: React.FC = () => {
                 </div>
 
                 <div className="footer-actions">
-                    <button className="btn-report" onClick={handleGeneratePDF}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                        GENERATE PDF REPORT
+                    <button className="btn-pdf" onClick={handleGeneratePDF}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        GENERATE REPORT PDF
                     </button>
                     <button className="btn-continue" onClick={() => navigate('/dashboard')}>
                         CONTINUE TO RECOMMENDATIONS
