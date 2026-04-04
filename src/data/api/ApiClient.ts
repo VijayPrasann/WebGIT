@@ -3,8 +3,8 @@
  * It configures standard headers and base URL.
  */
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.example.com/v1';
-
+// @ts-ignore
+import { apiFetch } from '../../api';
 class ApiClient {
     private getHeaders(): HeadersInit {
         return {
@@ -15,7 +15,7 @@ class ApiClient {
     }
 
     async get<T>(endpoint: string): Promise<T> {
-        const response = await fetch(`${BASE_URL}${endpoint}`, {
+        const response = await apiFetch(endpoint, {
             method: 'GET',
             headers: this.getHeaders(),
         });
@@ -28,7 +28,7 @@ class ApiClient {
     }
 
     async post<T>(endpoint: string, data?: unknown): Promise<T> {
-        const response = await fetch(`${BASE_URL}${endpoint}`, {
+        const response = await apiFetch(endpoint, {
             method: 'POST',
             headers: this.getHeaders(),
             body: data ? JSON.stringify(data) : undefined,

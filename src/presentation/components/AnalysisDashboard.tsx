@@ -1,3 +1,5 @@
+// @ts-ignore
+import { API_BASE_URL } from '../../api';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './AnalysisDashboard.css';
@@ -41,7 +43,7 @@ export const AnalysisDashboard: React.FC = () => {
 
     const handleGeneratePDF = () => {
         if (analysisId) {
-            window.open(`http://localhost:8000/api/analysis/pdf/${analysisId}`, '_blank');
+            window.open(`${API_BASE_URL}/analysis/pdf/${analysisId}`, '_blank');
         } else {
             alert("Analysis data is still saving, please wait a moment and try again.");
         }

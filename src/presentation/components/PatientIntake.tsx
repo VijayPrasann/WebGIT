@@ -1,3 +1,5 @@
+// @ts-ignore
+import { apiFetch } from '../../api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PatientIntake.css';
@@ -30,7 +32,7 @@ export const PatientIntake: React.FC = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8000/api/patient-details', {
+            const response = await apiFetch('/patient-details', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

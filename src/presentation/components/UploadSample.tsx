@@ -1,3 +1,5 @@
+// @ts-ignore
+import { apiFetch } from '../../api';
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './UploadSample.css';
@@ -111,7 +113,7 @@ export const UploadSample: React.FC = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/upload-sample', {
+            const response = await apiFetch('/upload-sample', {
                 method: 'POST',
                 body: formDataPayload,
             });

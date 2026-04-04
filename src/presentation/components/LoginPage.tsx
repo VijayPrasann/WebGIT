@@ -1,3 +1,5 @@
+// @ts-ignore
+import { apiFetch } from '../../api';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginPage.css';
@@ -15,7 +17,7 @@ export const LoginPage: React.FC = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8000/api/login', {
+            const response = await apiFetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

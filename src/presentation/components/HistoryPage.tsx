@@ -1,3 +1,5 @@
+// @ts-ignore
+import { apiFetch } from '../../api';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HistoryPage.css';
@@ -31,7 +33,7 @@ export const HistoryPage: React.FC = () => {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/history');
+                const response = await apiFetch('/history');
                 if (!response.ok) {
                     throw new Error('Failed to fetch history data.');
                 }
@@ -72,7 +74,7 @@ export const HistoryPage: React.FC = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:8000/api/analysis/${id}`, {
+            const response = await apiFetch(`/analysis/${id}`, {
                 method: 'DELETE',
             });
 

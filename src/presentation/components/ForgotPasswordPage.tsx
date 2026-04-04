@@ -1,3 +1,5 @@
+// @ts-ignore
+import { apiFetch } from '../../api';
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ForgotPasswordPage.css';
@@ -75,7 +77,7 @@ export const ForgotPasswordPage: React.FC = () => {
             }
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:8000/api/forgot-password', {
+                const response = await apiFetch('/forgot-password', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email }),
@@ -107,7 +109,7 @@ export const ForgotPasswordPage: React.FC = () => {
 
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:8000/api/verify-reset-otp', {
+                const response = await apiFetch('/verify-reset-otp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, otp: finalCode }),
